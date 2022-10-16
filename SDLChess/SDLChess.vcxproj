@@ -134,6 +134,9 @@
       <AdditionalLibraryDirectories>C:\vclib\SDL2-2.24.1\lib\x64;C:\vclib\SDL2_image-2.6.2\lib\x64;C:\vclib\SDL2_ttf-2.20.1\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
