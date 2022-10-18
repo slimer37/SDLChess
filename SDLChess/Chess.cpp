@@ -2,6 +2,7 @@
 
 #include "SDL.h"
 #include "Chess.h"
+#include "Position.h"
 
 Chess::Chess(const char *title, int x, int y, int w, int h, int squareSize) {
     if (SDL_Init(0) != 0) {
@@ -27,6 +28,8 @@ Chess::Chess(const char *title, int x, int y, int w, int h, int squareSize) {
     square = new SDL_Rect{ 0, 0, squareSize, squareSize };
 }
 
+Position hoverPos;
+
 void Chess::handleEvents() {
     SDL_Event event;
     SDL_PollEvent(&event);
@@ -36,6 +39,20 @@ void Chess::handleEvents() {
     case SDL_QUIT:
         isRunning = false;
         break;
+
+    case SDL_MOUSEMOTION:
+    {
+        int &x = event.motion.x;
+        int &y = event.motion.y;
+
+        Position currPos(x, y, square->w);
+
+        if (hoverPos != currPos) {
+            hoverPos = currPos;
+            std::cout << hoverPos.getDisplayString() << " " << hoverPos.getIndex() << std::endl;
+        }
+    }
+    break;
 
     default:
         break;
