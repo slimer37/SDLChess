@@ -11,7 +11,8 @@ public:
 
     bool running() { return isRunning; }
 private:
-    SDL_Window *window;
-    SDL_Renderer *renderer;
+    SDL_Rect *square;
+    SDL_Window *window = nullptr;
+    SDL_Renderer *renderer = nullptr;
     bool isRunning;
 };
