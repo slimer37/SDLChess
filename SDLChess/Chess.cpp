@@ -101,12 +101,14 @@ void drawText(SDL_Renderer *renderer, const char *text) {
 
     if (surfaceMessage == nullptr) {
         std::cout << "Error creating text surface: " << SDL_GetError() << std::endl;
+        return;
     }
 
     SDL_Texture *message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
 
     if (message == nullptr) {
         std::cout << "Error creating text texture: " << SDL_GetError() << std::endl;
+        return;
     }
 
     int w = surfaceMessage->w / 2;
@@ -116,6 +118,7 @@ void drawText(SDL_Renderer *renderer, const char *text) {
 
     if (SDL_RenderCopy(renderer, message, NULL, &rect) != 0) {
         std::cout << "Error rendering text: " << SDL_GetError() << std::endl;
+        return;
     }
 
     SDL_FreeSurface(surfaceMessage);
