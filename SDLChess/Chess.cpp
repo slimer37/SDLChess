@@ -3,6 +3,12 @@
 #include "SDL.h"
 #include "Chess.h"
 #include "Position.h"
+#include "SDL_ttf.h"
+
+void drawText(SDL_Renderer *renderer, const char *text);
+void renderBoard(SDL_Renderer *renderer, SDL_Rect *square);
+
+TTF_Font *roboto = nullptr;
 
 Chess::Chess(const char *title, int x, int y, int w, int h, int squareSize) {
     if (SDL_Init(0) != 0) {
@@ -26,6 +32,18 @@ Chess::Chess(const char *title, int x, int y, int w, int h, int squareSize) {
     }
 
     square = new SDL_Rect{ 0, 0, squareSize, squareSize };
+
+    if (TTF_Init() != 0) {
+        std::cout << "Failed to initialize TTF: " << SDL_GetError() << std::endl;
+    }
+
+    roboto = TTF_OpenFont("Roboto.ttf", 48);
+
+    if (roboto == nullptr) {
+        std::cout << "Failed to load font: " << SDL_GetError() << std::endl;
+    }
+
+    render();
 }
 
 Position hoverPos;
@@ -50,6 +68,12 @@ void Chess::handleEvents() {
         if (hoverPos != currPos) {
             hoverPos = currPos;
             std::cout << hoverPos.getDisplayString() << " " << hoverPos.getIndex() << std::endl;
+
+            SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+            SDL_RenderClear(renderer);
+            renderBoard(renderer, square);
+            drawText(renderer, hoverPos.getDisplayString().c_str());
+            SDL_RenderPresent(renderer);
         }
     }
     break;
@@ -68,6 +92,34 @@ void Chess::clean() {
     SDL_Quit();
 
     std::cout << "Game cleaned." << std::endl;
+}
+
+void drawText(SDL_Renderer *renderer, const char *text) {
+    SDL_Color color{ 0, 0, 0 };
+
+    SDL_Surface *surfaceMessage = TTF_RenderText_Solid(roboto, text, color);
+
+    if (surfaceMessage == nullptr) {
+        std::cout << "Error creating text surface: " << SDL_GetError() << std::endl;
+    }
+
+    SDL_Texture *message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+
+    if (message == nullptr) {
+        std::cout << "Error creating text texture: " << SDL_GetError() << std::endl;
+    }
+
+    int w = surfaceMessage->w / 2;
+    int h = surfaceMessage->h / 2;
+
+    SDL_Rect rect{ 320 - w / 2, 540 - h / 2, w, h };
+
+    if (SDL_RenderCopy(renderer, message, NULL, &rect) != 0) {
+        std::cout << "Error rendering text: " << SDL_GetError() << std::endl;
+    }
+
+    SDL_FreeSurface(surfaceMessage);
+    SDL_DestroyTexture(message);
 }
 
 const SDL_Color col1 = { 250, 225, 180 };
@@ -93,5 +145,6 @@ void Chess::render() {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
     renderBoard(renderer, square);
+    drawText(renderer, "Hello!");
     SDL_RenderPresent(renderer);
 }

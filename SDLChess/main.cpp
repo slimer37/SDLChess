@@ -8,7 +8,6 @@ int main(int argc, char *argv[]) {
     while (chess->running()) {
         chess->handleEvents();
         chess->update();
-        chess->render();
     }
 
     chess->clean();
