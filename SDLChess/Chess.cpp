@@ -97,7 +97,7 @@ void Chess::clean() {
 void drawText(SDL_Renderer *renderer, const char *text) {
     SDL_Color color{ 0, 0, 0 };
 
-    SDL_Surface *surfaceMessage = TTF_RenderText_Solid(roboto, text, color);
+    SDL_Surface *surfaceMessage = TTF_RenderText_Blended(roboto, text, color);
 
     if (surfaceMessage == nullptr) {
         std::cout << "Error creating text surface: " << SDL_GetError() << std::endl;
