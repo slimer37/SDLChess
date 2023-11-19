@@ -142,12 +142,14 @@
     <ClCompile Include="FenReader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Position.cpp" />
+    <ClCompile Include="Text.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
     <ClInclude Include="Chess.h" />
     <ClInclude Include="FenReader.h" />
     <ClInclude Include="Position.h" />
+    <ClInclude Include="Text.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

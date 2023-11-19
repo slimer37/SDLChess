@@ -3,11 +3,7 @@
 #include "SDL.h"
 #include "Chess.h"
 #include "Position.h"
-#include "SDL_ttf.h"
-
-void drawText(SDL_Renderer *renderer, const char *text);
-
-TTF_Font *roboto = nullptr;
+#include "Text.h"
 
 Chess::Chess(const char *title, int x, int y, int w, int h, Board *board) {
     if (SDL_Init(0) != 0) {
@@ -30,16 +26,6 @@ Chess::Chess(const char *title, int x, int y, int w, int h, Board *board) {
 
     if (!renderer) {
         std::cerr << "Failed to create renderer: " << SDL_GetError() << std::endl;
-    }
-
-    if (TTF_Init() != 0) {
-        std::cout << "Failed to initialize TTF: " << SDL_GetError() << std::endl;
-    }
-
-    roboto = TTF_OpenFont("Roboto.ttf", 48);
-
-    if (roboto == nullptr) {
-        std::cout << "Failed to load font: " << SDL_GetError() << std::endl;
     }
 
     render();
@@ -89,37 +75,6 @@ void Chess::clean() {
     SDL_Quit();
 
     std::cout << "Game cleaned." << std::endl;
-}
-
-void drawText(SDL_Renderer *renderer, const char *text) {
-    SDL_Color color{ 0, 0, 0 };
-
-    SDL_Surface *surfaceMessage = TTF_RenderText_Blended(roboto, text, color);
-
-    if (surfaceMessage == nullptr) {
-        std::cout << "Error creating text surface: " << SDL_GetError() << std::endl;
-        return;
-    }
-
-    SDL_Texture *message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
-
-    if (message == nullptr) {
-        std::cout << "Error creating text texture: " << SDL_GetError() << std::endl;
-        return;
-    }
-
-    int w = surfaceMessage->w / 2;
-    int h = surfaceMessage->h / 2;
-
-    SDL_Rect rect{ 320 - w / 2, 540 - h / 2, w, h };
-
-    if (SDL_RenderCopy(renderer, message, NULL, &rect) != 0) {
-        std::cout << "Error rendering text: " << SDL_GetError() << std::endl;
-        return;
-    }
-
-    SDL_FreeSurface(surfaceMessage);
-    SDL_DestroyTexture(message);
 }
 
 void Chess::render() {
