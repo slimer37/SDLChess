@@ -28,6 +28,8 @@ Chess::Chess(const char *title, int x, int y, int w, int h, Board *board) {
         std::cerr << "Failed to create renderer: " << SDL_GetError() << std::endl;
     }
 
+    board->setRenderer(renderer);
+
     render();
 }
 
@@ -54,7 +56,7 @@ void Chess::handleEvents() {
             hoverPos = currPos;
             std::cout << hoverPos.getDisplayString() << " " << hoverPos.getIndex() << std::endl;
 
-            board->render(renderer);
+            board->render();
             drawText(renderer, hoverPos.getDisplayString().c_str());
             SDL_RenderPresent(renderer);
         }
@@ -78,7 +80,7 @@ void Chess::clean() {
 }
 
 void Chess::render() {
-    board->render(renderer);
+    board->render();
     drawText(renderer, "Hello!");
     SDL_RenderPresent(renderer);
 }
