@@ -1,15 +1,15 @@
 #pragma once
 
-class Chess {
-    void renderBoard();
+#include "Board.h"
 
-    int squareSize;
+class Chess {
+    Board *board;
     SDL_Window *window = nullptr;
     SDL_Renderer *renderer = nullptr;
     bool isRunning;
 
 public:
-    Chess(const char *title, int x, int y, int w, int h, int squareSize);
+    Chess(const char *title, int x, int y, int w, int h, Board *board);
 
     void handleEvents();
     void update();
