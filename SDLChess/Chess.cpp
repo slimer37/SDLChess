@@ -20,6 +20,8 @@ Chess::Chess(const char *title, int x, int y, int w, int h, int squareSize) {
 
     window = SDL_CreateWindow(title, x, y, w, h, 0);
 
+    this->squareSize = squareSize;
+
     if (!window) {
         std::cerr << "Failed to create window: " << SDL_GetError() << std::endl;
     }
@@ -30,8 +32,6 @@ Chess::Chess(const char *title, int x, int y, int w, int h, int squareSize) {
     if (!renderer) {
         std::cerr << "Failed to create renderer: " << SDL_GetError() << std::endl;
     }
-
-    square = new SDL_Rect{ 0, 0, squareSize, squareSize };
 
     if (TTF_Init() != 0) {
         std::cout << "Failed to initialize TTF: " << SDL_GetError() << std::endl;
@@ -63,15 +63,13 @@ void Chess::handleEvents() {
         int &x = event.motion.x;
         int &y = event.motion.y;
 
-        Position currPos(x, y, square->w);
+        Position currPos(x, y, squareSize);
 
         if (hoverPos != currPos) {
             hoverPos = currPos;
             std::cout << hoverPos.getDisplayString() << " " << hoverPos.getIndex() << std::endl;
 
-            SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-            SDL_RenderClear(renderer);
-            renderBoard(renderer, square);
+            renderBoard();
             drawText(renderer, hoverPos.getDisplayString().c_str());
             SDL_RenderPresent(renderer);
         }
@@ -128,26 +126,27 @@ void drawText(SDL_Renderer *renderer, const char *text) {
 const SDL_Color light = { 250, 225, 180 };
 const SDL_Color dark = { 120, 85, 50 };
 
-void renderBoard(SDL_Renderer *renderer, SDL_Rect *square) {
-    int &squareSize = square->w;
+void Chess::renderBoard() {
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
+
+    SDL_Rect square{ 0, 0, squareSize, squareSize };
 
     for (int rank = 0; rank < 8; rank++) {
         for (int file = 0; file < 8; file++) {
-            square->x = squareSize * rank;
-            square->y = squareSize * file;
+            square.x = squareSize * rank;
+            square.y = squareSize * file;
 
             const SDL_Color &col = (rank + file) % 2 == 0 ? light : dark;
 
             SDL_SetRenderDrawColor(renderer, col.r, col.g, col.b, col.a);
-            SDL_RenderFillRect(renderer, square);
+            SDL_RenderFillRect(renderer, &square);
         }
     }
 }
 
 void Chess::render() {
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_RenderClear(renderer);
-    renderBoard(renderer, square);
+    renderBoard();
     drawText(renderer, "Hello!");
     SDL_RenderPresent(renderer);
 }
