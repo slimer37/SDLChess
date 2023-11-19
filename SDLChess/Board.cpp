@@ -44,5 +44,5 @@ void Board::highlight(Position position) {
 
     SDL_SetRenderDrawColor(renderer, col.r, col.g, col.b, col.a);
 
-    SDL_RenderFillRect(renderer, new SDL_Rect{ (position.fileAsInt() - 1) * tileSize, (8 - position.getRank()) * tileSize, tileSize, tileSize });
+    SDL_RenderFillRect(renderer, new SDL_Rect{ (position.fileAsInt() - 1) * tileSize, (position.getRank() - 1) * tileSize, tileSize, tileSize });
 }

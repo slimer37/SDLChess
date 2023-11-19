@@ -6,7 +6,7 @@
 Position::Position() : Position(0, 0) {}
 
 Position::Position(int xIndex, int yIndex) :
-    file('A' + xIndex), rank(8 - yIndex) {}
+    file('A' + xIndex), rank(yIndex + 1) {}
 
 Position::Position(int coordX, int coordY, int squareSize) :
     Position(coordX / squareSize, coordY / squareSize) {}
@@ -28,5 +28,5 @@ int Position::fileAsInt() {
 }
 
 bool Position::isLight() {
-    return (rank + fileAsInt()) % 2 != 0;
+    return (rank + fileAsInt()) % 2 == 0;
 }
