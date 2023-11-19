@@ -1,5 +1,6 @@
 #include "SDL.h"
 #include "Board.h"
+#include "Position.h"
 
 const SDL_Color light = { 250, 225, 180 };
 const SDL_Color dark = { 120, 85, 50 };
@@ -32,4 +33,16 @@ void Board::render() {
             SDL_RenderFillRect(renderer, &square);
         }
     }
+}
+
+void Board::highlight(Position position) {
+    SDL_Color col = position.isLight() ? light : dark;
+
+    col.r -= 50;
+    col.g -= 50;
+    col.b -= 50;
+
+    SDL_SetRenderDrawColor(renderer, col.r, col.g, col.b, col.a);
+
+    SDL_RenderFillRect(renderer, new SDL_Rect{ (position.fileAsInt() - 1) * tileSize, (8 - position.getRank()) * tileSize, tileSize, tileSize });
 }

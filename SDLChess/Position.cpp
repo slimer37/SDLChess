@@ -16,5 +16,17 @@ std::string Position::getDisplayString() {
 }
 
 int Position::getIndex() {
-    return (rank - 1) * 8 + (file - 'A');
+    return (rank - 1) * 8 + fileAsInt();
+}
+
+/// <summary>
+/// Returns the file as an int, where A is 1.
+/// </summary>
+/// <returns></returns>
+int Position::fileAsInt() {
+    return file - 'A' + 1;
+}
+
+bool Position::isLight() {
+    return (rank + fileAsInt()) % 2 != 0;
 }

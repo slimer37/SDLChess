@@ -9,7 +9,12 @@ struct Position {
     Position(int coordX, int coordY, int squareSize);
 
     std::string getDisplayString();
+
     int getIndex();
+
+    bool isLight();
+
+    int fileAsInt();
 
     bool operator==(Position other) {
         return file == other.file && rank == other.rank;

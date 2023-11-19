@@ -57,6 +57,7 @@ void Chess::handleEvents() {
             std::cout << hoverPos.getDisplayString() << " " << hoverPos.getIndex() << std::endl;
 
             board->render();
+            board->highlight(currPos);
             drawText(renderer, hoverPos.getDisplayString().c_str());
             SDL_RenderPresent(renderer);
         }

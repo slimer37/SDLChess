@@ -1,14 +1,17 @@
 #pragma once
 
+#include "Position.h"
+
 class Board {
     SDL_Renderer *renderer;
 public:
-    void render();
+    const int tileSize;
 
     Board(int tileSize);
 
-    void setRenderer(SDL_Renderer *renderer);
+    void render();
+    void highlight(Position position);
 
-    const int tileSize;
+    void setRenderer(SDL_Renderer *renderer);
 };
 
