@@ -19,10 +19,6 @@ int Position::getIndex() {
     return (rank - 1) * 8 + fileAsInt();
 }
 
-/// <summary>
-/// Returns the file as an int, where A is 1.
-/// </summary>
-/// <returns></returns>
 int Position::fileAsInt() {
     return file - 'A' + 1;
 }

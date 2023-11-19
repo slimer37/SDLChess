@@ -13,9 +13,6 @@ void Board::setRenderer(SDL_Renderer *renderer) {
     this->renderer = renderer;
 }
 
-/// <summary>
-/// Clears the buffer and renders an empty chess grid to the screen.
-/// </summary>
 void Board::render() {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);

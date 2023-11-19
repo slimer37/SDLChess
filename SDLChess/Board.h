@@ -9,6 +9,9 @@ public:
 
     Board(int tileSize);
 
+    /// <summary>
+    /// Clears the buffer and renders an empty chess grid to the screen.
+    /// </summary>
     void render();
     void highlight(Position position);
 

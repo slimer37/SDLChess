@@ -14,6 +14,10 @@ struct Position {
 
     bool isLight();
 
+    /// <summary>
+    /// Returns the file as an int, where A is 1.
+    /// </summary>
+    /// <returns></returns>
     int fileAsInt();
 
     bool operator==(Position other) {
