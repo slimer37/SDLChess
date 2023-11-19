@@ -4,7 +4,9 @@
 const SDL_Color light = { 250, 225, 180 };
 const SDL_Color dark = { 120, 85, 50 };
 
-Board::Board(int tileSize) : tileSize(tileSize) { }
+Board::Board(int tileSize) : tileSize(tileSize) {
+    renderer = nullptr;
+}
 
 void Board::setRenderer(SDL_Renderer *renderer) {
     this->renderer = renderer;
