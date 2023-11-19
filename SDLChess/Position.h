@@ -3,8 +3,7 @@
 #include <string>
 #include <format>
 
-class Position {
-public:
+struct Position {
     Position();
     Position(int squareIndexX, int squareIndexY);
     Position(int coordX, int coordY, int squareSize);
@@ -19,6 +18,9 @@ public:
     bool operator!=(Position other) {
         return !(*this == other);
     }
+
+    char getFile() { return file; }
+    int getRank() { return rank; }
 
 private:
     char file;
