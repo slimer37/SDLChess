@@ -22,7 +22,7 @@ void initIfNeeded(const char *fontFile = "Roboto.ttf") {
     ttfReady = true;
 }
 
-void drawText(SDL_Renderer *renderer, const char *text) {
+void drawText(SDL_Renderer *renderer, int x, int y, const char *text) {
     initIfNeeded();
 
     SDL_Color color{ 0, 0, 0 };
@@ -44,7 +44,7 @@ void drawText(SDL_Renderer *renderer, const char *text) {
     int w = surfaceMessage->w / 2;
     int h = surfaceMessage->h / 2;
 
-    SDL_Rect rect{ 320 - w / 2, 540 - h / 2, w, h };
+    SDL_Rect rect{ x - w / 2, y - h / 2, w, h };
 
     if (SDL_RenderCopy(renderer, message, NULL, &rect) != 0) {
         std::cout << "Error rendering text: " << SDL_GetError() << std::endl;

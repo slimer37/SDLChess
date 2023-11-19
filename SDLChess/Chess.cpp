@@ -58,7 +58,7 @@ void Chess::handleEvents() {
 
             board->render();
             board->highlight(currPos);
-            drawText(renderer, hoverPos.getDisplayString().c_str());
+            drawText(renderer, 320, 540, hoverPos.getDisplayString().c_str());
             SDL_RenderPresent(renderer);
         }
     }
@@ -82,6 +82,5 @@ void Chess::clean() {
 
 void Chess::render() {
     board->render();
-    drawText(renderer, "Hello!");
     SDL_RenderPresent(renderer);
 }
