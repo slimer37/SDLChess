@@ -46,7 +46,7 @@ void drawText(SDL_Renderer *renderer, int x, int y, const char *text) {
 
     SDL_Rect rect{ x - w / 2, y - h / 2, w, h };
 
-    if (SDL_RenderCopy(renderer, message, NULL, &rect) != 0) {
+    if (SDL_RenderCopy(renderer, message, nullptr, &rect) != 0) {
         std::cout << "Error rendering text: " << SDL_GetError() << std::endl;
         return;
     }
