@@ -125,8 +125,8 @@ void drawText(SDL_Renderer *renderer, const char *text) {
     SDL_DestroyTexture(message);
 }
 
-const SDL_Color col1 = { 250, 225, 180 };
-const SDL_Color col2 = { 120, 85, 50 };
+const SDL_Color light = { 250, 225, 180 };
+const SDL_Color dark = { 120, 85, 50 };
 
 void renderBoard(SDL_Renderer *renderer, SDL_Rect *square) {
     int &squareSize = square->w;
@@ -136,7 +136,7 @@ void renderBoard(SDL_Renderer *renderer, SDL_Rect *square) {
             square->x = squareSize * rank;
             square->y = squareSize * file;
 
-            const SDL_Color &col = (rank + file) % 2 == 0 ? col1 : col2;
+            const SDL_Color &col = (rank + file) % 2 == 0 ? light : dark;
 
             SDL_SetRenderDrawColor(renderer, col.r, col.g, col.b, col.a);
             SDL_RenderFillRect(renderer, square);
